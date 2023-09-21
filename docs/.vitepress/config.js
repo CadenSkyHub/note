@@ -4,6 +4,7 @@ import themeConfig from "./theme-config";
 * */
 
 export default {
+    base:'/note/',
     title: '笔记 & 知识',
     description: '我的学习笔记站点',
     themeConfig,
