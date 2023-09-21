@@ -106,14 +106,25 @@ grant privileges on databasename.tablename to 'username'@'host' with grant optio
 
 ## 设置与更改用户密码
 
+### 8.0 以前
+
 ``` sql
+# root用户修改其他用户密码
 set password for 'username'@'host' = PASSWORD('newpassword');
+# 修改当前登录用户密码
+set password = PASSWORD("newpassword");
 ```
 
-如果是修改当前登录用户密码
+### 8.0 以后
 
 ``` sql
-set password = PASSWORD("newpassword");
+use mysql;
+
+ALTER USER '用户名'@'localhost' IDENTIFIED WITH mysql_native_password BY '新密码';
+
+flush privileges;   -- 刷新MySQL的系统权限相关表
+
+exit;	-- 退出
 ```
 
 
