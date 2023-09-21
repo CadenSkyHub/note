@@ -8,5 +8,6 @@ export default {
     title: '笔记 & 知识',
     description: '我的学习笔记站点',
     themeConfig,
-    lang:'zh-CN'
+    lang:'zh-CN',
+    lastUpdated: true
 }

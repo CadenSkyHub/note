@@ -7,12 +7,12 @@ hero:
   text: 我的学习笔记站点.
   tagline: 忘 了 初 心，也 能 始 终 吧...
   image:
-    src: /logo.png/
+    src: /logo.png
     alt: VitePress
   actions:
     - theme: brand
       text: Github
-      link: http://www.baidu.com
+      link: https://github.com/watele0528/note
     - theme: alt
       text: VitePress
       link: /VitePress/1_开始/1_开始.md
