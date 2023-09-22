@@ -8,6 +8,7 @@ export default [
             {text:'DDL定义',link:'/开发/Mysql/3_DDL定义.md'},
             {text:'DML操作',link:'/开发/Mysql/4_DML操作.md'},
             {text:'DQL查询',link:'/开发/Mysql/5_DQL查询.md'},
+            {text:'多表查询',link:'/开发/Mysql/6_多表查询.md'},
         ]
     },
     {
