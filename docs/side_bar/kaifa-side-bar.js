@@ -64,5 +64,17 @@ export default [
             {text: '模块',link: '/开发/小程序/模块.md'},
             {text: '代码片段',link: '/开发/小程序/代码片段.md'},
         ]
+    },
+    {
+        text: 'PeeWee',
+        collapsed: true,
+        items: [
+            {text: '开始',link: '/开发/peewee/1_开始.md'},
+            {text: '数据库模型',link: '/开发/peewee/2_数据库模型.md'},
+            {text: '增',link: '/开发/peewee/3_增.md'},
+            {text: '改',link: '/开发/peewee/4_改.md'},
+            {text: '删',link: '/开发/peewee/5_删.md'},
+            {text: '查_基本',link: '/开发/peewee/6_查_基本.md'},
+        ]
     }
 ]
