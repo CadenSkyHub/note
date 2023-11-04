@@ -21,7 +21,7 @@ export default [
         ]
     },
     {
-        text: 'Pymonto',
+        text: 'Pymongo',
         collapsed: true,
         items: [
             {text: '连接数据库',link: '/开发/Pymongo/1_连接数据库.md'},
@@ -75,6 +75,25 @@ export default [
             {text: '改',link: '/开发/peewee/4_改.md'},
             {text: '删',link: '/开发/peewee/5_删.md'},
             {text: '查_基本',link: '/开发/peewee/6_查_基本.md'},
+        ]
+    },
+    {
+        text: 'Tortoise',
+        collapsed: true,
+        items: [
+            {text: '开始',link: '/开发/Tortoise/1_开始.md'},
+            {text: '模型',link: '/开发/Tortoise/2_模型.md'},
+            {text: 'Aerich(BUG)',link: '/开发/Tortoise/3_Aerich.md'},
+            {text: '新增',link: '/开发/Tortoise/4_新增.md'},
+            {text: '修改',link: '/开发/Tortoise/5_修改.md'},
+            {text: '删除',link: '/开发/Tortoise/6_删除.md'},
+            {text: '基础查询',link: '/开发/Tortoise/7_查询.md'},
+            {text: '条件查询',link: '/开发/Tortoise/8_条件查询.md'},
+            {text: '逻辑查询',link: '/开发/Tortoise/9_逻辑查询.md'},
+            {text: '比较查询',link: '/开发/Tortoise/10_比较查询.md'},
+            {text: '分页/计数/分组',link: '/开发/Tortoise/11_分页_计数_分组.md'},
+            {text: '多表查询',link: '/开发/Tortoise/12_多表查询.md'},
+            {text: '事务',link: '/开发/Tortoise/13_事务.md'},
         ]
     }
 ]
