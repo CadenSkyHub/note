@@ -595,6 +595,42 @@ async def sign(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 
+### 自定义登录表单/form-data
+
+::: info 提示
+
+这里用到请求表单，需要安装 ：`python-multipart`， 更安全
+
+``` bash
+pip install python-multipart
+```
+
+:::
+
+
+
+``` python
+@userRouters.post('/login')
+async def login(mobile: str = Form(..., ), password: str = Form(...)):
+    # 校验密码
+    user = await verify_user(mobile, password)
+    if user:
+        user['create_time'] = user['create_time'].strftime('%Y-%m-%d %H:%M:%S')
+
+        tk, exp = await token.create_token(user, timedelta(minutes=60 * 24 * 3))
+
+        return {
+            'token': tk,
+            'exp': exp
+        }
+    else:
+        return '用户名或密码错误'
+```
+
+
+
+
+
 ### 创建依赖
 
 ``` python
