@@ -39,7 +39,8 @@ export default [
         collapsed: true,
         items: [
             {text: 'Oath',link: '/开发/FastApi/Oauth.md'},
-            {text: '代码片段',link: '/开发/FastApi/代码片段.md'}
+            {text: '代码片段',link: '/开发/FastApi/代码片段.md'},
+            {text: '定义装饰器',link: '/开发/FastApi/定义装饰器.md'}
         ]
     },
     {
