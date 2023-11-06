@@ -1,38 +1,17 @@
-# fastapi Oauth2
+# fastapi Oauth
 
 
 
-- 用户在前端输入 `username` 与`password`，并点击**回车**
-- （用户浏览器中运行的）前端把 `username` 与`password` 发送至 API 中指定的 URL（使用 `tokenUrl="token"` 声明）
-- API 检查 `username` 与`password`，并用令牌（`Token`） 响应
-- 令牌只是用于验证用户的字符串
-- 一般来说，令牌会在一段时间后过期
-    - 过时后，用户要再次登录
-    - 这样一来，就算令牌被人窃取，风险也较低。因为它与永久密钥不同，**在绝大多数情况下**不会长期有效
-- 前端临时将令牌存储在某个位置
-- 用户点击前端，前往前端应用的其它部件
-- 前端需要从 API 中提取更多数据：
-    - 为指定的端点（Endpoint）进行身份验证
-    - 因此，用 API 验证身份时，要发送值为 `Bearer` + 令牌的请求头 `Authorization`
-    - 假如令牌为 `foobar`，`Authorization` 请求头就是： `Bearer foobar`
+Fastapi 密码加密、生成 token
 
+## 密码加密及校验
 
-
-## 用到的库
-
-``` bash
-# JWT 库
-pip install python-jose[cryptography]
-
+```bash
 # 密码加密库
-pip install passlib[bcrypt]
+pip install "passlib[bcrypt]"
 ```
 
 
-
-
-
-## 密码加密及校验
 
 ``` python
 from passlib.context import CryptContext
@@ -190,11 +169,32 @@ class UserPwd:
 
 
 
+## python-jose库
 
 
 
+- 用户在前端输入 `username` 与`password`，并点击**回车**
+- （用户浏览器中运行的）前端把 `username` 与`password` 发送至 API 中指定的 URL（使用 `tokenUrl="token"` 声明）
+- API 检查 `username` 与`password`，并用令牌（`Token`） 响应
+- 令牌只是用于验证用户的字符串
+- 一般来说，令牌会在一段时间后过期
+  - 过时后，用户要再次登录
+  - 这样一来，就算令牌被人窃取，风险也较低。因为它与永久密钥不同，**在绝大多数情况下**不会长期有效
+- 前端临时将令牌存储在某个位置
+- 用户点击前端，前往前端应用的其它部件
+- 前端需要从 API 中提取更多数据：
+  - 为指定的端点（Endpoint）进行身份验证
+  - 因此，用 API 验证身份时，要发送值为 `Bearer` + 令牌的请求头 `Authorization`
+  - 假如令牌为 `foobar`，`Authorization` 请求头就是： `Bearer foobar`
 
-## token 创建及解析
+
+
+``` bash
+# JWT 库
+pip install "python-jose[cryptography]"
+```
+
+
 
 
 
@@ -228,11 +228,12 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30  # 时间间隔参数，不传默认 30 分钟
 
 # 第二步
 # 创建校验 token 的依赖，指定 token 路由
+# 这个要求必须是 username 和 password 字段，可以改，但是比较麻烦
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/sign')
 
 # 第三步
 # 创建 token
-def create_token(data: dict, expires_delta: timedelta | None = None) -> str:
+def create_token(data: dict, expires_delta: timedelta | None = None) -> tuple:
     """
     创建 token
     :param data: 对用JWT的Payload字段，这里是tokens的载荷，在这里就是用户的信息
@@ -331,7 +332,7 @@ class Token:
         if expires_delta:
             expires = datetime.utcnow() + expires_delta
         else:
-            expires = datetime.utcnow() + timedelta(minutes=30)
+            expires = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
 
         # 在深拷贝用户信息，增加一个 exp , 为 token 过期时间
         to_encode['exp'] = expires
@@ -386,7 +387,110 @@ class Token:
 
 
 
-## 注册功能
+## 自定义验证依赖（自由）
+
+```python
+from fastapi import Request, HTTPException
+from fastapi import status
+
+"""
+自定义验证依赖
+"""
+async def get_token_scheme(request: Request):
+    """
+    1. 校验请求头中是否有 "Authorization"
+        如果有，则获取 scheme -> Bearer 和 token
+        如果没有，返回错误
+    2.校验 scheme
+    3.没问题 返回 token
+    """
+    # 自定义错误
+    header_error = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="缺失请求头 Authorization",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
+    bearer_error = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Authorization 格式有误",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
+    # 校验请求头中的 "Authorization"
+    authorization = request.headers.get("Authorization")
+    # 如果请求头中没有 "Authorization"
+    if not authorization:
+        raise header_error
+
+    # 获取 scheme 和 token
+    scheme, _, param = authorization.partition(" ")
+
+    # 校验 scheme
+    if scheme.lower() != "bearer":
+        raise bearer_error
+
+    # 上述都没问题，则返回 param
+    return param
+  
+  
+  
+  
+  
+# 使用依赖
+# 解析 token
+async def get_current_user(token: str = Depends(get_token_scheme)) -> dict:
+    # 自定义报错信息
+    token_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail='用户未登录或 token 已失效'
+    )
+    print(123)
+
+    try:
+        # 解析 token
+        pay_load = jwt.decode(token, TOKEN_SETTINGS['SECRET_KEY'], algorithms=[TOKEN_SETTINGS['ALGORITHM']])
+
+        # 获取到用户的 id
+        user_id = pay_load.get('id')
+
+        # 判断是不是空值
+        if user_id is None:
+            raise token_exception
+
+        # 从数据库获取用户
+        from app import User
+        user = await User.get_or_none(id=user_id).values()
+
+        if user is None:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail='用户不存在')
+
+        del user['password']
+        return user
+
+    except JWTError:
+        raise token_exception
+        
+        
+        
+"""
+创建路由依赖
+"""
+async def get_active_current_user(user=Depends(token.get_current_user)):
+    if user:
+        return user
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                        detail='用户未登录或 token 已失效')
+
+```
+
+
+
+
+
+## 使用
+
+### 注册功能
 
 ``` python
 from database import dbClient, Document
@@ -419,11 +523,11 @@ async def register(user: User):
 
 
 
-## 登录功能
+### 登录功能
 
 ::: info 提示
 
-这里用到请求表单，需要安装 ：`python-multipart`
+这里用到请求表单，需要安装 ：`python-multipart`， 更安全
 
 ``` bash
 pip install python-multipart
@@ -435,9 +539,11 @@ pip install python-multipart
 
 ::: danger 警告
 
-OAuth2 规范的 "密码流" 模式规定要通过表单字段发送 `username` 和 `password`。
+OAuth2PasswordBearer 类规范的 "密码流" 模式规定要通过表单字段发送 `username` 和 `password`。
 
 该规范要求字段必须命名为 `username` 和 `password`，并通过表单字段发送，不能用 JSON。
+
+如果要用其他字段，[请自定义验证路由](#自定义验证依赖（自由）)
 
 :::
 
@@ -489,7 +595,7 @@ async def sign(form_data: OAuth2PasswordRequestForm = Depends()):
 
 
 
-## 创建依赖
+### 创建依赖
 
 ``` python
 # 导入数据库
@@ -511,11 +617,9 @@ def get_active_current_user(user=Depends(token_dep.get_current_user)):
 
 
 
-## 使用依赖
+### 使用依赖
 
 将依赖注入路由
-
-
 
 ``` python {4，10-11,14,16}
 # 导入依赖
