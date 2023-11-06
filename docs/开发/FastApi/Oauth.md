@@ -539,7 +539,7 @@ pip install python-multipart
 
 ::: danger 警告
 
-OAuth2PasswordBearer 类规范的 "密码流" 模式规定要通过表单字段发送 `username` 和 `password`。
+OAuth2PasswordBearer ，`OAuth2PasswordRequestForm` 类规范的 "密码流" 模式规定要通过表单字段发送 `username` 和 `password`。
 
 该规范要求字段必须命名为 `username` 和 `password`，并通过表单字段发送，不能用 JSON。
 
