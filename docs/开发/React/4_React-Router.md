@@ -10,12 +10,30 @@
 
 ::: danger 注意
 
-可以使用懒加载导入，优化
+- [lazy – React 中文文档 (docschina.org)](https://react.docschina.org/reference/react/lazy#lazy)
+- [使用 React.lazy() 实现按需加载组件，提高应用性能！ - 掘金 (juejin.cn)](https://juejin.cn/post/7224322566826934327)
+
+
+
+可以使用懒加载导入，优化,
+
+但是如果使用 `lazy` 还需要使用 `Suspense` 组件进行包装
 
 ``` javascript
 import {lazy} from "react";
 const FullLayout = lazy(() => import('@/layout/FullLayout'))
 ```
+
+
+
+``` json {1,4,3}
+<Suspense fallback={<Loading />}>
+  <h2>Preview</h2>
+  <SomeComponent />
+ </Suspense>
+```
+
+`fallback` 是在组件加载时，页面显示的内容，例如 `Loading...`
 
 
 
