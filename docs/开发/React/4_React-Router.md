@@ -24,7 +24,7 @@ import {lazy} from "react";
 const FullLayout = lazy(() => import('@/layout/FullLayout'))
 ```
 
-
+还必须用下面这个，可以做个封装，具体看示例
 
 ``` json {1,4,3}
 <Suspense fallback={<Loading />}>
@@ -34,6 +34,36 @@ const FullLayout = lazy(() => import('@/layout/FullLayout'))
 ```
 
 `fallback` 是在组件加载时，页面显示的内容，例如 `Loading...`
+
+
+
+::: details 示例
+
+```tsx {2,5-11,17}
+import {createBrowserRouter} from "react-router-dom";
+import {lazy, Suspense} from "react";
+
+// 封装一个 Loading 组件
+const lazyLoad = (Comp) => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <Comp/>	// 这个就相当于，把 lazy(() => import('@/page/Login')) 传进来
+        </Suspense>
+    )
+}
+
+
+const routers = createBrowserRouter([
+    {
+        path: '/login',
+        element: lazyLoad(lazy(() => import('@/page/Login')))	// 使用方法
+    },
+])
+
+export default routers;
+```
+
+:::
 
 
 
