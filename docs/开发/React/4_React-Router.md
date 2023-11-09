@@ -8,6 +8,19 @@
 
 
 
+::: danger 注意
+
+可以使用懒加载导入，优化
+
+``` javascript
+import {lazy} from "react";
+const FullLayout = lazy(() => import('@/layout/FullLayout'))
+```
+
+
+
+:::
+
 ## 开始
 
 ### 安装路由
