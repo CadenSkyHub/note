@@ -44,6 +44,19 @@ export default [
         ]
     },
     {
+        text: 'React',
+        collapsed: true,
+        items: [
+            {text: 'Vite搭建React',link: '/开发/React/1_Vite搭建React.md'},
+            {text: 'Vite配置',link: '/开发/React/2_Vite配置.md'},
+            {text: 'React基础',link: '/开发/React/3_React基础.md'},
+            {text: 'React-Rouer',link: '/开发/React/4_React-Router.md'},
+            {text: '组件通信',link: '/开发/React/5_组件通信.md'},
+            {text: 'Zustand',link: '/开发/React/6_Zustand.md'},
+            {text: 'Mock数据',link: '/开发/React/7_mock数据.md'},
+        ]
+    },
+    {
         text: 'JavaScript',
         collapsed: true,
         items: [
