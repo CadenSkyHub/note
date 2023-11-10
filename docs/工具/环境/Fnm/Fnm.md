@@ -69,7 +69,7 @@ vi ~/.bashrc
 # 输入 i 插入
 # 通过 ↓ 箭头到最后
 # 插入
-export PATH="/fnm:$PATH"		# 这里的 /fnm 是存放解压 fnm 的目录，最新版本的这句不用加了
+export PATH="/fnm:$PATH"		# 这里的 /fnm 是存放解压 fnm 的目录
 eval "$(fnm env --use-on-cd)"
 
 # 按 esc
@@ -86,6 +86,8 @@ eval "$(fnm env --use-on-cd)"
 如果报错：`Permission denied`
 
 则需要修改一下文件权限为 777 
+
+如果还有问题，试试重启看能不能解决
 
 具体修改方法参考：[权限修改](https://blog.csdn.net/zh_1721342390/article/details/104753997)
 
