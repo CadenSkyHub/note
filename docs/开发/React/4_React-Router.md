@@ -80,6 +80,7 @@ npm install react-router-dom
 
 
 ### 配置路由
+如果用 `codesever` 只能使用 `createHashRouter` 模式
 
 ``` js {9}
 // router/index.jsx
@@ -127,6 +128,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 
 
 ## 路由模式
+
+::: danger 注意
+如果用 `codesever` 只能使用 `createHashRouter` 模式
+:::
 
 | 路由模式  | url表现      | 是否需要后端支持 |                      |
 | --------- | ------------ | ---------------- | -------------------- |
