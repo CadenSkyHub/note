@@ -81,3 +81,31 @@ export default defineConfig({
 
 
 > 这里需要注意的是，基于Vite脚手架的工程在src目录里并没有使用js文件，而是以jsx文件进行开发。默认情况下，js文件是不能正常加载的。在后续章节会讲解如何通过修改Vite配置来兼容js文件，但是仍然不推荐这么做。除此之外，在src目录之外的`vite.config.js`则相反，没有使用jsx文件。
+
+
+## codesever
+如果使用的是 `codesever`，需要做以下配置。注意端口号和 `base` 地址，要一致
+
+``` json {13,16}
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    }
+  },
+  base: '/absproxy/5177',
+  server: {
+    host:'0.0.0.0',
+    port: 5177
+  }
+})
+
+```
+
+
