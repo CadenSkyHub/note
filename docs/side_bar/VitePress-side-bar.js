@@ -32,6 +32,9 @@ export default [
             {text: '标题徽标',link: '/VitePress/4_编写/1_标题徽标.md'},
             {text: '容器块儿',link: '/VitePress/4_编写/2_容器块儿.md'},
             {text: '代码块儿高亮',link: '/VitePress/4_编写/3_代码行内高亮.md'},
+            {text: '代码组',link: '/VitePress/4_编写/4_代码组.md'},
+            {text: '代码错误与警告',link: '/VitePress/4_编写/5_代码错误与警告.md'},
+            {text: '代码块差异',link: '/VitePress/4_编写/6_代码块差异.md'},
         ]
     }
 ]
