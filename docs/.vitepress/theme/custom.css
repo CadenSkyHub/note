@@ -1,11 +1,35 @@
+/* .vitepress/theme/custom.css */
+
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-Black.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap;}
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap;}
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-ExtraBold.woff2') format('woff2');font-weight:800;font-style:normal;font-display:swap;}
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-Heavy.woff2') format('woff2');font-weight:900;font-style:normal;font-display:swap;}
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-Light.woff2') format('woff2');font-weight:300;font-style:normal;font-display:swap;}
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap;}
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap;}
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-SemiBold.woff2') format('woff2');font-weight:600;font-style:normal;font-display:swap;}
+@font-face{font-family:'AlibabaPuHui';src:url('./font/zh/AlibabaPuHui-Thin.woff2') format('woff2');font-weight:100;font-style:normal;font-display:swap;}
+
+@font-face {
+    font-family: "JetBrains";
+    src: url("./font/en/JetBrainsMono.woff2")format("woff2");
+}
+
+
 :root {
-    --vp-c-indigo-1: #5352ed; /* 颜色 */
+    --c-brand: #646cff;
+    /* 颜色 */
     --c-brand-light: #747bff;
 }
 
 
 /* 字体 */
 :root {
-    --vp-font-family-base: "Inter var experimental", "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --vp-font-family-base: "AlibabaPuHui",sans-serif,"Inter var experimental", "Inter var", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue";
     /*--vp-font-family-mono: "Menlo, Monaco, Consolas,"Courier New", monospace"*/
+    --vp-font-family-mono:"JetBrains"
+}
+
+.vp-doc strong{
+    font-weight: 700;
 }
