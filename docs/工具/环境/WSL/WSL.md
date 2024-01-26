@@ -177,14 +177,11 @@ wsl -l -v # 查看要迁移的子系统 Name
 
 - `<Distribution Name>`：子系统名称
 - `<FileName>`：备份导出路径
-    - `.vhdx`：后缀仅适用于 `wsl2`
-    - `.tar`：后缀适用于 `wsl1` 和 `wsl2` **建议使用**
+    - `.tar`：后缀适用于 `wsl1` 和 `wsl2`
 
 ``` powershell
 wsl --export <Distribution Name> <FileName>
 
-# 例：vhdx
-wsl --export Ubuntu E:\Linux\ubuntu.vhdx
 # 例：tar
 wsl --export Ubuntu E:\Linux\ubuntu.tar
 ```
