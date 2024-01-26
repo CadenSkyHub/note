@@ -284,3 +284,8 @@ Host github.com
   Port 443
 ```
 
+
+
+### 配置 terminal
+
+![image-20240127001842910](./assets/image-20240127001842910.png)
