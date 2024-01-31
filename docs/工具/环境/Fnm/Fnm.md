@@ -113,13 +113,17 @@ curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir "./.fnm" --
 
 ### 1. Windows 修改 PowerShell profile
 
-在安装 node 版本后，输入 `node -v` 是不生效的，因为没有配置 `powershell` 文件
+在安装 `node` 版本后，输入 `node -v` 是不生效的，因为没有配置 `powershell` 文件
 
 - 在 `powershell` 中输入 ` $PROFILE`
 
+    > [!caution] 注意
+    >
+    > 注意：`PowerShell 7`和内置的 `PowerShell` 路径是不一样的，具体请输入 `$PROFILE` 查看具体路径
+
 ![image-20230702004621107](./assets/image-20230702004621107.png)
 
-- 在该路径应该是找不到这个文件，那么直接新增即可
+- 在该路径应该是找不到这个文件，那么直接新增 `Microsoft.PowerShell_profile.ps1` 文件即可
 
 ![image-20230702004656913](./assets/image-20230702004656913.png)
 
@@ -165,17 +169,23 @@ eval "$(fnm env --use-on-cd)"
 
 
 
-
-
 ## 修改默认安装 node 位置
 
 可以先用 `fnm env` 查看配置
 
 ### 1. windows
 
+打开 `Microsoft.PowerShell_profile.ps1` 添加以下内容
+
 ```sh
-setx FNM_DIR "目录位置"
+$env:FNM_DIR="E:\Fnm\node"
 ```
+
+最后看起来像这个样子
+
+![image-20240131135439700](./assets/image-20240131135439700.png)
+
+
 
 
 
