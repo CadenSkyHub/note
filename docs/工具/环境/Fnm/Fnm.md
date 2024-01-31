@@ -135,11 +135,14 @@ fnm env --use-on-cd | Out-String | Invoke-Expression
 
 ![image-20230702004758947](./assets/image-20230702004758947.png)
 
-- 重新打开 `powershell` 如果报错： 在此系统上禁止运行脚本...
-    - 关闭`powershell`
-    - 使用 `管理员身份` 运行
-    - 输入 `set-executionpolicy remotesigned` 回车 即可
-    - 参考：[PowerShell 报错](https://www.cnblogs.com/lovebing/p/16112837.html)
+> [!caution] 注意
+>
+> 重新打开 `powershell` 如果报错： 在此系统上禁止运行脚本...
+>
+> - 关闭`powershell`
+> - 使用 `管理员身份` 运行
+> - 输入 `set-executionpolicy remotesigned` 回车 即可
+> - 参考：[PowerShell 报错](https://www.cnblogs.com/lovebing/p/16112837.html)
 
 
 
@@ -183,9 +186,9 @@ $env:FNM_DIR="E:\Fnm\node"
 
 最后看起来像这个样子
 
-![image-20240131135439700](./assets/image-20240131135439700.png)
+`fnm env --use-on-cd | Out-String | Invoke-Expression` 要放置 在最后
 
-
+![image-20240131142650183](./assets/image-20240131142650183.png)
 
 
 
